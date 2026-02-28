@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Apology to My self 🎙️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Poppins',sans-serif;
+    overflow:hidden;
+    color:white;
+    position:relative;
+}
+
+/* ===== Blurred Background Image ===== */
+
+.bg-image{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:url("background.jpg") center/cover no-repeat;
+    filter:blur(18px) brightness(0.5);
+    transform:scale(1.1);
+    z-index:-2;
+}
+
+/* Dark overlay for depth */
+.overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(135deg, rgba(15,12,41,0.8), rgba(48,43,99,0.8));
+    z-index:-1;
+}
+
+/* ===== Card ===== */
+
+.card{
+    backdrop-filter:blur(15px);
+    background:rgba(255,255,255,0.08);
+    padding:45px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 0 60px rgba(255,105,180,0.25);
+    width:400px;
+    transition:0.6s ease;
+}
+
+h1{
+    font-family:'Playfair Display',serif;
+    font-size:26px;
+    margin-bottom:5px;
+}
+
+.subtitle{
+    font-size:14px;
+    opacity:0.7;
+    margin-bottom:30px;
+}
+
+/* ===== Buttons ===== */
+
+.controls{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+
+button{
+    padding:12px 25px;
+    border-radius:30px;
+    border:none;
+    font-size:14px;
+    cursor:pointer;
+    background:linear-gradient(45deg,#ff4b7d,#ff758c);
+    color:white;
+    transition:0.3s;
+    box-shadow:0 0 20px rgba(255,75,125,0.6);
+}
+
+button:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 35px rgba(255,75,125,1);
+}
+
+/* ===== Waves ===== */
+
+.wave-container{
+    display:none;
+    margin-top:30px;
+    justify-content:center;
+    align-items:center;
+    gap:6px;
+}
+
+.wave{
+    width:6px;
+    height:12px;
+    background:#ff758c;
+    border-radius:5px;
+    animation:waveAnim 1s infinite ease-in-out;
+}
+
+.wave:nth-child(2){animation-delay:0.1s;}
+.wave:nth-child(3){animation-delay:0.2s;}
+.wave:nth-child(4){animation-delay:0.3s;}
+.wave:nth-child(5){animation-delay:0.4s;}
+
+@keyframes waveAnim{
+    0%,100%{height:12px;}
+    50%{height:40px;}
+}
+
+/* ===== Heartbeat effect while playing ===== */
+
+.playing{
+    animation:heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.02);}
+}
+
+.footer-text{
+    margin-top:25px;
+    font-size:13px;
+    opacity:0.6;
+    font-style:italic;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-image"></div>
+<div class="overlay"></div>
+
+<div class="card" id="card">
+    <h1>An Apology to My Self</h1>
+    <div class="subtitle">Written by Chhavii. Felt deeply.</div>
+
+    <div class="controls">
+        <button onclick="playAudio()">Play 🎙️</button>
+        <button onclick="pauseAudio()">Pause ⏸️</button>
+    </div>
+
+    <div class="wave-container" id="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="footer-text">Her words. Her truth. Her voice. 
+        Some voices stay longer than silence.</div>
+</div>
+
+<audio id="poemAudio">
+    <source src="poem.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const audio = document.getElementById("poemAudio");
+const waves = document.getElementById("waves");
+const card = document.getElementById("card");
+
+function playAudio(){
+    audio.play();
+    waves.style.display="flex";
+    card.classList.add("playing");
+}
+
+function pauseAudio(){
+    audio.pause();
+    waves.style.display="none";
+    card.classList.remove("playing");
+}
+
+audio.onended = function(){
+    waves.style.display="none";
+    card.classList.remove("playing");
+}
+
+</script>
+
+</body>
+</html>
